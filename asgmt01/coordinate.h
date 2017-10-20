@@ -1,4 +1,5 @@
-// make NO CHANGES to this file
+// make NO CHANGES to this file, except you are allowed to add
+// private data members to the class as needed
 
 #ifndef _COORDINATE_H_
 #define _COORDINATE_H_
@@ -17,6 +18,7 @@ public:
 
 private:
 	static const unsigned char		degreeChar{0xB0};
+    int degrees, minutes, secondsTenths;
 };
 
 #endif // _COORDINATE_H_

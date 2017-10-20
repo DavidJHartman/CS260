@@ -1,0 +1,1 @@
+modified comment to allow addition of private data members
