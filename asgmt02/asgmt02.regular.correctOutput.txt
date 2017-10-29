@@ -1,0 +1,88 @@
+CS260 - Assignment 2 Regular - Michael Trigoboff
+
+quack: empty
+
+--> pushFront a
+--> pushFront b
+--> pushFront c
+--> pushFront d
+--> pushBack z
+--> pushFront e
+
+quack: e, d, c, b, a, z
+
+# of items: 6
+
+--> popFront e
+
+quack: d, c, b, a, z
+
+--> popFront d
+
+quack: c, b, a, z
+
+--> pushBack f
+
+quack: c, b, a, z, f
+
+--> pushBack g
+
+quack: c, b, a, z, f, g
+
+--> rotate 2
+
+quack: a, z, f, g, c, b
+
+--> rotate -3
+
+quack: g, c, b, a, z, f
+
+--> reverse
+
+quack: f, z, a, b, c, g
+
+--> pushFront y
+
+quack: y, f, z, a, b, c, g
+
+--> rotate 3
+
+quack: a, b, c, g, y, f, z
+
+--> rotate -4
+
+quack: g, y, f, z, a, b, c
+
+# of items: 7
+
+--> popBack c
+
+quack: g, y, f, z, a, b
+
+--> popBack b
+
+quack: g, y, f, z, a
+
+--> popBack a
+
+quack: g, y, f, z
+
+--> popBack z
+
+quack: g, y, f
+
+--> popBack f
+
+quack: g, y
+
+--> popBack y
+
+quack: g
+
+--> popBack g
+
+quack: empty
+
+# of items: 0
+
+
