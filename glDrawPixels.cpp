@@ -82,15 +82,25 @@ void fill(unsigned char arr[ARES][ARES][3]) {
 
 
 int R(int x, int y) {
-	return pow(x, (float)y/255 + 1);
+    if (sin(y-(ARES/2)) - cos(x)>0) {
+        return sin(x)*255;
+    }
+	return 0;
 }
 
 int G(int x, int y) {
-	return 255*sin((float)(x+y)/16);
+    int dist = sqrt( pow( x - (ARES/2), 2) + pow( y - (ARES/2), 2 ) );
+    if ( dist < ARES/2){
+        return (255)*tan(atan2( x - (ARES/2), y - (ARES/2)));
+    }
+	return 0;
 }
 
 int B(int x, int y) {
-	return x%y;
+	if (sin(x-(ARES/2)) - cos(y)<0) {
+    return sin(y)*255;
+    }
+    return 0;
 }
 
 
