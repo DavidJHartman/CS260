@@ -74,36 +74,45 @@ void fill(unsigned char arr[ARES][ARES][3]) {
 			arr[r][c][0] = rand()%255 * isTrue(r, c); // red
 			arr[r][c][1] = rand()%255 * isTrue(r, c); // green
 			arr[r][c][2] = rand()%255 * isTrue(r, c); // blue
-		}
+        }
 	}
 }
 
-bool isTrue(int r, int c) {
-	// convert r to binary
-	bool binNum[VARS] = {0};
-	int newR = r;
-	for(int count = VARS; count > 0; count--) {
-		binNum[count-1] = newR%2;
-		newR /= 2;
-	}
+bool getTruthValueOfArg(int x, int y) {
+    
+    int bitMask = pow(2, y);
+    int truth = x & bitMask;
+    truth = truth>>y;
+    return truth;
 
+}
+
+bool isTrue(int r, int c) {
 	// see if location is a variable or formula
 	if(c < VARS) {
-		return binNum[c];
+	    return getTruthValueOfArg(r, c);
 	} else {
 		// do a logical formula
-		switch(c) {
-			case VARS:
-				return !(binNum[0] && binNum[1]); // ~(A and B)
-			case VARS+1:
-				return binNum[0] || binNum[1]; // A or B
-			case VARS+2:
-				return binNum[1] && !binNum[2]; 
-			case VARS+3:
-				return !(binNum[2] && binNum[1]); // ~(A and B)
-			case VARS+4:
-				return binNum[0] || binNum[1] && binNum[2]; // A or B
+		switch(c - VARS+1) {
+		    case 1:
+                return !getTruthValueOfArg(rand()%3, c) ||
+                (getTruthValueOfArg(rand()%3, c) &&
+                getTruthValueOfArg(rand()%3, c));
+            case 2:
+                return getTruthValueOfArg(rand()%3, c) &&
+                !getTruthValueOfArg(rand()%3,c);
+            case 3:
+                return !getTruthValueOfArg(rand()%3, c) ||
+                getTruthValueOfArg(rand()%3, c);
+            case 4:
+                return !getTruthValueOfArg(rand()%3,c) &&
+                !getTruthValueOfArg(rand()%3, c);
+            case 5: return getTruthValueOfArg(rand()%3,c) ||
+            !getTruthValueOfArg(rand()%3, c);
+            default:
+            return true;
 		}
 	}
+    return false;
 }
 
