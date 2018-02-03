@@ -2,6 +2,8 @@
 #include <iostream>
 #include <cmath>
 #include <fstream>
+#include <stdlib.h>
+#include <time.h>
 using namespace std;
 
 
@@ -25,6 +27,7 @@ unsigned char inRange(int n);
 unsigned char nbrAvg(unsigned char arr[ARESY][ARESX][3], int r, int c, int color);
 void sharpen(unsigned char arr[ARESY][ARESX][3]);
 unsigned char nbrSharp(unsigned char arr[ARESY][ARESX][3], int r, int c, int color);
+void bubblizer(unsigned char arr[ARESY][ARESX][3], int n);
 
 
 int main(int argc, char** argv) {
@@ -63,9 +66,8 @@ void display() {
 	
 	//contrast(arr, 0.01);
 	//contrast(arr, -1);
-	for(int i = 0; i < 10; i++) {
-		blur(arr);
-	}
+    
+    bubblizer(arr, 15);
 
 	// resize the array to the size of the window RES
 	glPixelZoom((float)WRESX/ARESX, (float)WRESY/ARESY);
@@ -136,6 +138,44 @@ void contrast(unsigned char arr[ARESY][ARESX][3], double n) {
 			arr[r][c][2] = inRange((arr[r][c][2]-128) * n + 128);
 		}
 	}
+}
+
+
+void bubblizer(unsigned char arr[ARESY][ARESX][3], int n) {
+   srand(time(NULL)); 
+    int position[n][2];
+    int radius[n];
+
+    for ( int i = 0; i < n; i++ ) {
+        position[i][0] = rand()%ARESY;
+        position[i][1] = rand()%ARESX;
+        radius[i] = rand()%51 + 100;
+    }
+    for ( int i = 0; i < ARESY; i++ ) {
+        for ( int j = 0; j < ARESX; j++ ) {
+            
+            for (int c = 0; c < n; c++ ) {
+                
+                int tempy = i - position[c][0];
+                int tempx = j - position[c][1];
+
+                if ( sqrt( tempx * tempx + tempy * tempy ) < radius[c] ) {
+                    arr[i][j][0] = inRange( arr[i][j][0] / 2 );
+                    arr[i][j][1] = inRange( arr[i][j][1] / 2 );
+                    arr[i][j][2] = inRange( arr[i][j][2] / 2 );
+                    goto bub;
+                }
+
+            }
+            
+            arr[i][j][0] = inRange( arr[i][j][0] * 4.4 );
+            arr[i][j][1] = inRange( arr[i][j][1] * 4.4 );
+            arr[i][j][2] = inRange( arr[i][j][2] * 4.4 );
+            
+            bub:;
+        }
+    }   
+    
 }
 
 
